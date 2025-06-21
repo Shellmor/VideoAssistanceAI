@@ -20,5 +20,8 @@ def ai_assistant(text: str):
     for line in response.text.strip().split('\n'):
         if line:
             data = json.loads(line)
-            result += data["message"]["content"]
+            if "message" in data and "content" in data["message"]:
+                result += data["message"]["content"]
+            else:
+                print("Нет ключа 'message' или 'content' в ответе:", data)
     return result
